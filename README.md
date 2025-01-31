@@ -1,47 +1,5 @@
-## Installation 
+# Installma (plugin) 
 
-Lazy
-```lua
-{
-    "sylvanfranklin/omnipreview", 
-    opts = {}
-}
-```
+Super simple web app to generate install instructions for every obscure neovim package manager, or just the big ones, you do you!
 
-Packer
-```lua
-{
-    "sylvanfranklin/omnipreview", 
-    config = function()
-        require("omnipreview").setup() 
-    end
-}
-```
-
-Pckr
-```lua
-{
-    "sylvanfranklin/omnipreview", 
-    config = function()
-        require("omnipreview").setup()
-    end
-}
-```
-
-Paq
-```lua
-{
-    "sylvanfranklin/omnipreview", 
-}
-```
-
-Plug
-```lua
-"sylvanfranklin/omnipreview" 
-```
-
-Vundle
-```lua
-Plugin 'sylvanfranklin/omnipreview'
-```
-
+please contribute, I'm not a good programmer! 
