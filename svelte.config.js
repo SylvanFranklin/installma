@@ -6,7 +6,7 @@ const config = {
     preprocess: vitePreprocess(),
     kit: {
         paths: {
-            base: process.argv.includes('dev') ? '' : "https://sylvanfranklin.github.io/installma"
+            base: ""
         },
         adapter: adapter({
             pages: 'build',
