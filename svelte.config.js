@@ -6,12 +6,12 @@ const config = {
     preprocess: vitePreprocess(),
     kit: {
         paths: {
-            base: process.env.NODE_ENV === 'production' ? '/installma' : '',
+            base: process.argv.includes('dev') ? '' : "https://sylvanfranklin.github.io/installma"
         },
         adapter: adapter({
             pages: 'build',
             assets: 'build',
-            fallback: '200.html',
+            fallback: 'index.html',
             precompress: false,
             strict: true
         })
