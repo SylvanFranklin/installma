@@ -13,48 +13,55 @@ function clean_names(repo) {
     return [full, part]
 }
 
-export const lazy = (url, branch, tag) => {
-    const [full, part] = clean_names(url)
-    return `{
+
+export const templates = {
+    lazy: (url, branch, tag) => {
+        const [full, part] = clean_names(url)
+        return `{
     "${full}", ${branch && `\n\tbranch = "${branch}",`}${tag && `\n\ttag = "${tag}",`}
     opts = {}
 }`
-}
+    },
 
-
-export const packer = (url, branch, tag) => {
-    const [full, part] = clean_names(url)
-    return `{
+    packer: (url, branch, tag) => {
+        const [full, part] = clean_names(url)
+        return `{
     "${full}", ${branch && `\n\tbranch = "${branch}",`}${tag && `\n\ttag = "${tag}",`}
     config = function()
         require("${part}").setup() 
     end
 }`
-}
+    },
 
-export const paq = (url, branch) => {
-    const [full, part] = clean_names(url)
-    return `{
+
+    paq: (url, branch) => {
+        const [full, part] = clean_names(url)
+        return `{
     "${full}", ${branch && `\n\tbranch = "${branch}",`}
 }`
-}
+    },
 
-export const plug = (url, branch, tag) => {
-    const [full, part] = clean_names(url);
-    return `"${full}" ${branch ? `, { 'branch': '${branch}' }` : ""}${tag ? `, { 'tag': '${tag}' }` : ""}`;
-}
+    plug: (url, branch, tag) => {
+        const [full, part] = clean_names(url);
+        return `"${full}" ${branch ? `, { 'branch': '${branch}' }` : ""}${tag ? `, { 'tag': '${tag}' }` : ""}`;
+    },
 
-export const vundle = (url, branch, tag) => {
-    const [full] = clean_names(url);
-    return `Plugin '${full}'${branch ? `, { 'branch': '${branch}' }` : ""}${tag ? `, { 'tag': '${tag}' }` : ""}`;
-}
+    vundle: (url, branch, tag) => {
+        const [full] = clean_names(url);
+        return `Plugin '${full}'${branch ? `, { 'branch': '${branch}' }` : ""}${tag ? `, { 'tag': '${tag}' }` : ""}`;
+    },
 
-export const pckr = (url, branch, tag) => {
-    const [full, part] = clean_names(url);
-    return `{
+    pckr: (url, branch, tag) => {
+        const [full, part] = clean_names(url);
+        return `{
     "${full}", ${branch ? `\n\tbranch = "${branch}",` : ""}${tag ? `\n\ttag = "${tag}",` : ""}
     config = function()
         require("${part}").setup()
     end
 }`;
+    }
+
 }
+
+
+
