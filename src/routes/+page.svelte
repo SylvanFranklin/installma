@@ -1,19 +1,17 @@
 <script>
-    import { templates } from "$lib";
+    import { templates, all_pms, pm_link } from "$lib";
     import { createHighlighter } from "shiki";
     import { slide } from "svelte/transition";
     let copy_button;
+    let pms = $state(all_pms);
     let selected_pms = $state([
         "Lazy",
-        "Packer",
-        // "Pckr",
-        // "Paq",
-        // "Plug",
-        // "Vundle",
+        "Mini",
+        "Rocks toml",
+        "Rocks command",
     ]);
     let branch = $state("");
     let tag = $state("");
-    let all_pms = $state(["Lazy", "Packer", "Pckr", "Paq", "Plug", "Vundle"]);
     let url = $state("github.com/sylvanfranklin/omnipreview");
     let hl = $state(
         createHighlighter({
@@ -83,7 +81,7 @@
             />
             <h2 class="mt-10">package managers</h2>
             <span class="flex flex-col items-start bg-slate-800 p-2 rounded-sm">
-                {#each all_pms as pm}
+                {#each pms as pm}
                     <label>
                         <input
                             class="outline-none bg-black rounded-sm text-white px-2"
@@ -138,16 +136,16 @@
             </button>
         </nav>
         {#await hl}
-            ...
+            loading preview...
         {:then hl}
             <h1 class="text-2xl font-bold mb-4">Installation</h1>
             {#each selected_pms as pm}
                 <span transition:slide>
                     <h2 class="mb-2">
-                        with {pm}
+                        with <a href={pm_link(pm)} class="text-blue-400">{pm}</a>
                     </h2>
                     {@html hl.codeToHtml(
-                        templates[pm.toLowerCase()](url, branch, tag),
+                        templates[pm.toLowerCase().trim().replace(" ", "")](url, branch, tag),
                         {
                             lang: "lua",
                             theme: "github-dark",
