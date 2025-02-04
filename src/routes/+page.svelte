@@ -2,7 +2,7 @@
     import { templates, all_pms, pm_link } from "$lib";
     import { createHighlighter } from "shiki";
     import { slide } from "svelte/transition";
-    let links = $state(false);
+    let links = $state(true);
     let copy_button;
     let pms = $state(all_pms);
     let selected_pms = $state(["Lazy", "Mini", "Rocks toml", "Rocks command"]);
@@ -12,7 +12,7 @@
     let hl = $state(
         createHighlighter({
             themes: ["github-dark"],
-            langs: ["markdown", "lua"],
+            langs: ["markdown", "lua", "toml"],
         }),
     );
     function handleSubmit(e) {
@@ -73,7 +73,7 @@
             <!-- svelte-ignore a11y_autofocus -->
             <input
                 autofocus
-                class="outline-none bg-slate-800 rounded-sm text-white p-2 w-full"
+                class="outline-none bg-slate-800/50 rounded-sm text-white p-2 w-full"
                 type="text"
                 bind:value={url}
             />
@@ -93,7 +93,7 @@
                 branch
             </h2>
             <input
-                class="outline-none bg-slate-800 text-white p-2 rounded-sm w-full"
+                class="outline-none bg-slate-800/50 text-white p-2 rounded-sm w-full"
                 type="text"
                 bind:value={branch}
             />
@@ -112,18 +112,19 @@
                 >tag
             </h2>
             <input
-                class="outline-none bg-slate-800 rounded-sm text-white p-2"
+                class="outline-none bg-slate-800/50 rounded-sm text-white p-2"
                 type="text"
                 bind:value={tag}
             />
 
-
             <h2 class="">package managers</h2>
-            <span class="flex flex-col items-start bg-slate-800 p-2 rounded-sm">
+            <span
+                class="grid grid-col grid-flow-row grid-cols-3 items-start bg-slate-800/50 p-2 rounded-sm"
+            >
                 {#each pms as pm}
                     <label>
                         <input
-                            class="outline-none bg-black rounded-sm text-white px-2"
+                            class="outline-none rounded-md text-white px-2 p-4"
                             autocomplete="off"
                             type="checkbox"
                             name="package managers"
@@ -135,7 +136,9 @@
                 {/each}
             </span>
             <h2 class="flex flex-row gap-3 items-center">settings</h2>
-            <span class="flex flex-col items-start bg-slate-800 p-2 rounded-sm">
+            <span
+                class="flex flex-col items-start bg-slate-800/50 p-2 rounded-sm"
+            >
                 <label class="Links">
                     <input class="" type="checkbox" bind:checked={links} />
                     links
@@ -185,8 +188,8 @@
             loading preview...
         {:then hl}
             <h1 class="text-2xl font-bold mb-4">Installation</h1>
-            {#each selected_pms as pm}
-                <span transition:slide>
+            {#each selected_pms as pm, index (pm)}
+                <span animate:flip={{ duration: 400 }}>
                     <h2 class="mb-2">
                         with
                         {#if links}
@@ -202,7 +205,9 @@
                             tag,
                         ),
                         {
-                            lang: "lua",
+                            lang: pm.toLowerCase().includes("toml")
+                                ? "toml"
+                                : "lua",
                             theme: "github-dark",
                         },
                     )}
