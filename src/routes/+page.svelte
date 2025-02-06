@@ -1,11 +1,13 @@
 <script>
-    import { templates, all_pms, pm_link } from "$lib";
+    import { templates, all_pms, pm_link, parse_options } from "$lib";
     import { createHighlighter } from "shiki";
     import { slide } from "svelte/transition";
     let links = $state(true);
+    let lazy = $state(true);
+    let options = $state("");
     let copy_button;
     let pms = $state(all_pms);
-    let selected_pms = $state(["Lazy", "Mini", "Rocks toml", "Rocks command"]);
+    let selected_pms = $state(["Lazy", "Packer"]);
     let branch = $state("");
     let tag = $state("");
     let url = $state("github.com/sylvanfranklin/omnipreview");
@@ -55,7 +57,19 @@
         class="flex flex-col w-full gap-3 rounded-sm p-8 bg-black text-white overflow-scroll text-lg"
     >
         <form onsubmit={handleSubmit} class="flex flex-col gap-2 text-left">
-            <h1 class="flex flex-row items-center gap-3">
+            <h1 class="font-bold text-lg">installma</h1>
+            <p>
+                Generate installation instructions for neovim plugins while
+                enforcing best practices for plugin compatibility and
+                simplicity. You can help out with a <span>star</span> on
+                <a
+                    href="https://github.com/SylvanFranklin/installma"
+                    class="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text"
+                >
+                    github
+                </a>.
+            </p>
+            <h1 class="flex flex-row items-center gap-3 mt-4">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -105,6 +119,24 @@
                     viewBox="0 0 16 16"
                     ><path
                         fill="currentColor"
+                        d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641z"
+                    /></svg
+                >
+                options
+            </h2>
+            <input
+                class="outline-none bg-slate-800/50 text-white p-2 rounded-sm w-full"
+                type="text"
+                bind:value={options}
+            />
+            <h2 class="flex flex-row gap-3 items-center">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 16 16"
+                    ><path
+                        fill="currentColor"
                         fill-rule="evenodd"
                         d="M9.664 1a1.75 1.75 0 0 0-1.237.512L1.514 8.419a1.75 1.75 0 0 0-.001 2.475L5.1 14.48a1.75 1.75 0 0 0 2.474 0l6.914-6.906A1.75 1.75 0 0 0 15 6.335V1zm-.177 1.573a.25.25 0 0 1 .177-.073H13.5v3.835a.25.25 0 0 1-.073.177L6.513 13.42a.25.25 0 0 1-.353 0L2.574 9.833a.25.25 0 0 1 0-.353zM11 6a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
                         clip-rule="evenodd"
@@ -142,6 +174,10 @@
                 <label class="Links">
                     <input class="" type="checkbox" bind:checked={links} />
                     links
+                </label>
+                <label class="Lazy">
+                    <input class="" type="checkbox" bind:checked={lazy} />
+                    lazy
                 </label>
             </span>
         </form>
@@ -203,6 +239,8 @@
                             url,
                             branch,
                             tag,
+                            parse_options(options),
+                            lazy,
                         ),
                         {
                             lang: pm.toLowerCase().includes("toml")
