@@ -2,7 +2,15 @@
 	import { parse_options, pm_link, templates } from "$lib";
 	import { createHighlighter } from "shiki";
 
-	let { selected_pms, url, branch, tag, options, lazy, links } = $props();
+	let {
+		selected_pms = $bindable(),
+		url = $bindable(),
+		branch,
+		tag,
+		options,
+		lazy,
+		links,
+	} = $props();
 
 	let copy_button;
 	let hl = $state(

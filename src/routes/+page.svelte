@@ -17,7 +17,15 @@
     <span
         class="flex flex-col w-full gap-3 rounded-xs p-8 bg-black text-white overflow-scroll text-lg"
     >
-        <Builder {selected_pms} {url} {branch} {tag} {options} {links} {lazy} />
+        <Builder
+            bind:selected_pms
+            bind:url
+            bind:branch
+            bind:tag
+            bind:options
+            bind:links
+            bind:lazy
+        />
     </span>
-    <Previewer {selected_pms} {url} {branch} {tag} {options} {links} {lazy} />
+    <Previewer {selected_pms} {url} {tag} {branch} {options} {links} {lazy} />
 </main>

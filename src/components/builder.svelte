@@ -3,7 +3,15 @@
 	import Builder from "../components/builder.svelte";
 	import Previewer from "../components/previewer.svelte";
 
-	let { selected_pms, url, branch, tag, options, lazy, links } = $props();
+	let {
+		selected_pms = $bindable(),
+		url = $bindable(),
+		branch = $bindable(),
+		tag = $bindable(),
+		options = $bindable(),
+		lazy = $bindable(),
+		links = $bindable(),
+	} = $props();
 
 	let pms = $state(all_pms);
 
@@ -49,6 +57,7 @@
 		type="text"
 		bind:value={url}
 	/>
+
 	<h2 class="flex flex-row gap-3 items-center">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
