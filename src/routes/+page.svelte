@@ -54,7 +54,7 @@
     class="flex flex-row w-screen h-screen font-mono justify-center bg-gray-800"
 >
     <span
-        class="flex flex-col w-full gap-3 rounded-sm p-8 bg-black text-white overflow-scroll text-lg"
+        class="flex flex-col w-full gap-3 rounded-xs p-8 bg-black text-white overflow-scroll text-lg"
     >
         <form onsubmit={handleSubmit} class="flex flex-col gap-2 text-left">
             <h1 class="font-bold text-lg">installma</h1>
@@ -64,7 +64,7 @@
                 simplicity. You can help out with a <span>star</span> on
                 <a
                     href="https://github.com/SylvanFranklin/installma"
-                    class="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text"
+                    class="bg-linear-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text"
                 >
                     github
                 </a>.
@@ -87,7 +87,7 @@
             <!-- svelte-ignore a11y_autofocus -->
             <input
                 autofocus
-                class="outline-none bg-slate-800/50 rounded-sm text-white p-2 w-full"
+                class="outline-hidden bg-slate-800/50 rounded-xs text-white p-2 w-full"
                 type="text"
                 bind:value={url}
             />
@@ -107,7 +107,7 @@
                 branch
             </h2>
             <input
-                class="outline-none bg-slate-800/50 text-white p-2 rounded-sm w-full"
+                class="outline-hidden bg-slate-800/50 text-white p-2 rounded-xs w-full"
                 type="text"
                 bind:value={branch}
             />
@@ -125,7 +125,7 @@
                 options
             </h2>
             <input
-                class="outline-none bg-slate-800/50 text-white p-2 rounded-sm w-full"
+                class="outline-hidden bg-slate-800/50 text-white p-2 rounded-xs w-full"
                 type="text"
                 bind:value={options}
             />
@@ -144,19 +144,19 @@
                 >tag
             </h2>
             <input
-                class="outline-none bg-slate-800/50 rounded-sm text-white p-2"
+                class="outline-hidden bg-slate-800/50 rounded-xs text-white p-2"
                 type="text"
                 bind:value={tag}
             />
 
             <h2 class="">package managers</h2>
             <span
-                class="grid grid-col grid-flow-row grid-cols-3 items-start bg-slate-800/50 p-2 rounded-sm"
+                class="grid grid-col grid-flow-row grid-cols-3 items-start bg-slate-800/50 p-2 rounded-xs"
             >
                 {#each pms as pm}
                     <label>
                         <input
-                            class="outline-none rounded-md text-white px-2 p-4"
+                            class="outline-hidden rounded-md text-white px-2 p-4"
                             autocomplete="off"
                             type="checkbox"
                             name="package managers"
@@ -169,7 +169,7 @@
             </span>
             <h2 class="flex flex-row gap-3 items-center">settings</h2>
             <span
-                class="flex flex-col items-start bg-slate-800/50 p-2 rounded-sm"
+                class="flex flex-col items-start bg-slate-800/50 p-2 rounded-xs"
             >
                 <label class="Links">
                     <input class="" type="checkbox" bind:checked={links} />
