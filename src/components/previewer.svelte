@@ -2,15 +2,8 @@
 	import { parse_options, pm_link, templates } from "$lib";
 	import { createHighlighter } from "shiki";
 
-	let {
-		selected_pms = $bindable(),
-		url = $bindable(),
-		branch,
-		tag,
-		options,
-		lazy,
-		links,
-	} = $props();
+	let { selected_pms, url, branch, tag, options, lazy, links, preview } =
+		$props();
 
 	let copy_button;
 	let hl = $state(
@@ -49,11 +42,14 @@
 	}
 </script>
 
-<div
-	class="w-full bg-black text-white p-6 overflow-scroll flex flex-col gap-3 disable-scrollbars rounded-lg m-4"
+<section
+	class={[
+		"w-screen lg:w-full flex-grow flex-shrink-0 lg:flex-shrink text-white p-6 pt-10 disable-scrollbars",
+		preview && "-translate-x-full lg:translate-x-0",
+	]}
 >
-	<nav
-		class="-pt-3 pb-2 bg-black w-full flex flex-row gap-4 items-center border-b-2 border-white/20 p-2"
+	<h3
+		class="flex gap-2 items-center text-lg uppercase border-b border-gray-500 pb-1"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -67,10 +63,10 @@
 				d="M0 3.75A.75.75 0 0 1 .75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.5 4.5 0 0 1 15.75 3h7.5a.75.75 0 0 1 .75.75v15.063a.75.75 0 0 1-.755.75l-7.682-.052a3 3 0 0 0-2.142.878l-.89.891a.75.75 0 0 1-1.061 0l-.902-.901a3 3 0 0 0-2.121-.879H.75a.75.75 0 0 1-.75-.75Zm12.75 15.232a4.5 4.5 0 0 1 2.823-.971l6.927.047V4.5h-6.75a3 3 0 0 0-3 3ZM11.247 7.497a3 3 0 0 0-3-2.997H1.5V18h6.947c1.018 0 2.006.346 2.803.98Z"
 			/>
 		</svg>
+		<span>Example Readme</span>
 
-		<h1>EXAMPLE README</h1>
 		<button
-			type="submit"
+			type="button"
 			bind:this={copy_button}
 			onclick={copy}
 			aria-label="copy to clipboard"
@@ -78,8 +74,8 @@
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				width="2em"
-				height="2em"
+				width="1.5em"
+				height="1.5em"
 				viewBox="0 0 24 24"
 			>
 				<path
@@ -88,14 +84,16 @@
 				/>
 			</svg>
 		</button>
-	</nav>
+	</h3>
+
 	{#await hl}
 		loading preview...
 	{:then hl}
-		<h1 class="text-2xl font-bold mb-4">Installation</h1>
+		<h2 class="text-xl font-bold my-4">Installation</h2>
+
 		{#each selected_pms as pm, index (pm)}
 			<span animate:flip={{ duration: 400 }}>
-				<h2 class="mb-2">
+				<h2 class="mb-2 mt-4">
 					with
 					{#if links}
 						<a href={pm_link(pm)} class="text-blue-400">{pm}</a>
@@ -119,7 +117,7 @@
 			</span>
 		{/each}
 	{/await}
-</div>
+</section>
 
 <style>
 	.disable-scrollbars::-webkit-scrollbar {
