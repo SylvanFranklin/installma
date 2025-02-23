@@ -1,4 +1,5 @@
 <script>
+	import { flip } from "svelte/animate";
 	import { parse_options, pm_link, templates } from "$lib";
 	import { createHighlighter } from "shiki";
 
@@ -44,7 +45,7 @@
 
 <section
 	class={[
-		"w-screen lg:w-full flex-grow flex-shrink-0 lg:flex-shrink text-white p-6 pt-10 disable-scrollbars",
+		"w-screen lg:w-full lg:max-w-1/2 flex-grow flex-shrink-0 lg:flex-shrink text-white p-6 pt-10 disable-scrollbars",
 		preview && "-translate-x-full lg:translate-x-0",
 	]}
 >
